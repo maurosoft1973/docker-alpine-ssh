@@ -40,7 +40,7 @@ do
 done
 
 if [ "$SSH_PASSWORD" == "" ]; then
-    ssh -T ${SSH_USER}@${SSH_SERVER} "mkdir -p ${DIRECTORY}"
+    ssh -T ${SSH_USER}@${SSH_SERVER} "sudo mkdir -p ${DIRECTORY}"
 else
     sshpass -p $SSH_PASSWORD ssh -T ${SSH_USER}@${SSH_SERVER} "mkdir -p ${DIRECTORY}"
 fi

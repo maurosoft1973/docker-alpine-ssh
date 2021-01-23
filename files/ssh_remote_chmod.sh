@@ -46,7 +46,7 @@ do
 done
 
 if [ "$SSH_PASSWORD" == "" ]; then
-    ssh -T ${SSH_USER}@${SSH_SERVER} "chmod -R ${PERMISSION} ${DIRECTORY}"
+    ssh -T ${SSH_USER}@${SSH_SERVER} "sudo chmod -R ${PERMISSION} ${DIRECTORY}"
 else
     sshpass -p $SSH_PASSWORD ssh -T ${SSH_USER}@${SSH_SERVER} "chmod -R ${PERMISSION} ${DIRECTORY}"
 fi

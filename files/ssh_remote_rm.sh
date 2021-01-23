@@ -40,7 +40,7 @@ do
 done
 
 if [ "$SSH_PASSWORD" == "" ]; then
-    ssh -T ${SSH_USER}@${SSH_SERVER} "rm -rf ${DIRECTORY}"
+    ssh -T ${SSH_USER}@${SSH_SERVER} "sudo rm -rf ${DIRECTORY}"
 else
     sshpass -p $SSH_PASSWORD ssh -T ${SSH_USER}@${SSH_SERVER} "rm -rf ${DIRECTORY}"
 fi

@@ -36,7 +36,7 @@ do
 done
 
 if [ "$SSH_PASSWORD" == "" ]; then
-    ssh -T ${SSH_USER}@${SSH_SERVER} "${SSH_COMMAND}"
+    ssh -T ${SSH_USER}@${SSH_SERVER} "sudo ${SSH_COMMAND}"
 else
     sshpass -p $SSH_PASSWORD ssh -T ${SSH_USER}@${SSH_SERVER} "${SSH_COMMAND}"
 fi
