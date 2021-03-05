@@ -68,7 +68,7 @@ else
 fi
 
 echo -e "Create and run container"
-docker run -dit --name ${CONTAINER} -e LC_ALL=${LC_ALL} -e IP=${IP} -e PORT=${PORT} ${IMAGE}
+docker run -dit --name ${CONTAINER} -e LC_ALL=${LC_ALL} -e IP=${IP} -e PORT=${PORT} -e SSH_PRIVATE_KEY="" ${IMAGE} 
 
 echo -e "Sleep 5 second"
 sleep 5

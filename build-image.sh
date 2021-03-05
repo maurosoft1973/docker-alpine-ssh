@@ -33,6 +33,9 @@ if [ "${ENV}" == "TEST" ]; then
 
     echo "Build Image: ${IMAGE}:test"
     docker build --build-arg BUILD_DATE=$BUILD_DATE -t ${IMAGE}:test .
+
+    #echo "Login Docker HUB"
+    echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
 else 
     docker build --build-arg BUILD_DATE=$BUILD_DATE -t ${IMAGE} -t ${IMAGE}:amd64 -t ${IMAGE}:x86_64 .
 

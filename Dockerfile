@@ -5,14 +5,14 @@ ARG BUILD_DATE
 LABEL \
     maintainer="Mauro Cardillo <mauro.cardillo@gmail.com>" \
     architecture="amd64/x86_64" \
-    alpine-version="3.12.3" \
+    alpine-version="3.13.2" \
     build="$BUILD_DATE" \
     org.opencontainers.image.title="alpine-ssh" \
     org.opencontainers.image.description="SSH Docker image running on Alpine Linux" \
     org.opencontainers.image.authors="Mauro Cardillo <mauro.cardillo@gmail.com>" \
     org.opencontainers.image.vendor="Mauro Cardillo" \
-    org.opencontainers.image.url="https://hub.docker.com/r/maurosoft1973/alpine-lftp/" \
-    org.opencontainers.image.source="https://github.com/maurosoft1973/alpine-lftp" \
+    org.opencontainers.image.url="https://hub.docker.com/r/maurosoft1973/alpine-ssh/" \
+    org.opencontainers.image.source="https://github.com/maurosoft1973/alpine-ssh" \
     org.opencontainers.image.created=$BUILD_DATE
 
 RUN \
