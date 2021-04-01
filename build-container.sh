@@ -2,58 +2,93 @@
 # Description: Script for alpine ssh container
 # Maintainer: Mauro Cardillo
 #
+echo "Get Remote Environment Variable"
+wget -q "https://gitlab.com/maurosoft1973-docker/alpine-variable/-/raw/master/.env" -O ./.env
+source ./.env
+
+echo "Get Remote Settings"
+wget -q "https://gitlab.com/maurosoft1973-docker/alpine-variable/-/raw/master/settings.sh" -O ./settings.sh
+chmod +x ./settings.sh
+source ./settings.sh
 
 # Default values of arguments
-IMAGE=maurosoft1973/alpine-ssh:test
-CONTAINER=alpine-ssh-test
+IMAGE=maurosoft1973/alpine-ssh
+IMAGE_TAG=latest
+CONTAINER=alpine-ssh
 LC_ALL=it_IT.UTF-8
 TIMEZONE=Europe/Rome
-IP=0.0.0.0
-PORT=0
+SSH_SERVER=localhost
+SSH_PORT=22
+SSH_USER=root
+SSH_PASSWORD=root
+SSH_KEY_PRIVATE=
 
 # Loop through arguments and process them
 for arg in "$@"
 do
     case $arg in
-        -c=*|--container=*)
+        -it=*|--image-tag=*)
+        IMAGE_TAG="${arg#*=}"
+        shift # Remove
+        ;;
+        -cn=*|--container=*)
         CONTAINER="${arg#*=}"
         shift # Remove
         ;;
-        -l=*|--lc_all=*)
+        -cl=*|--lc_all=*)
         LC_ALL="${arg#*=}"
         shift # Remove
         ;;
-        -t=*|--timezone=*)
+        -ct=*|--timezone=*)
         TIMEZONE="${arg#*=}"
         shift # Remove
         ;;
-        -i=*|--ip=*)
-        IP="${arg#*=}"
+        -s=*|--server=*)
+        SSH_SERVER="${arg#*=}"
         shift # Remove
         ;;
-        -p=*|--port=*)
-        PORT="${arg#*=}"
+        -P=*|--port=*)
+        SSH_PORT="${arg#*=}"
+        shift # Remove
+        ;;
+        -u=*|--user=*)
+        SSH_USER="${arg#*=}"
+        shift # Remove
+        ;;
+        -p=*|--password=*)
+        SSH_PASSWORD="${arg#*=}"
+        shift # Remove
+        ;;
+        -k=*|--private_key=*)
+        SSH_PRIVATE_KEY="${arg#*=}"
         shift # Remove
         ;;
         -h|--help)
         echo -e "usage "
         echo -e "$0 "
-        echo -e "  -c=|--container=${CONTAINER} -> name of container"
-        echo -e "  -l=|--lc_all=${LC_ALL} -> locale"
-        echo -e "  -t=|--timezone=${TIMEZONE} -> timezone"
-        echo -e "  -i=|--ip -> ${IP} (address ip listen)"
-        echo -e "  -p=|--port -> ${PORT} (port listen)"
+        echo -e "  -it=|--image-tag -> ${IMAGE}:${IMAGE_TAG} (image with tag)"
+        echo -e "  -cn=|--container -> ${CONTAINER} (container name)"
+        echo -e "  -cl=|--lc_all -> ${LC_ALL} (container locale)"
+        echo -e "  -ct=|--timezone -> ${TIMEZONE} (container timezone)"
+        echo -e "  -s=|--server -> ${SSH_SERVER} (ssh remote server)"
+        echo -e "  -P=|--port -> ${SSH_PORT} (ssh remote port)"
+        echo -e "  -u=|--user -> ${SSH_USER} (ssh remote user)"
+        echo -e "  -p=|--password -> ${SSH_PASSWORD} (ssh remote password)"
+        echo -e "  -k=|--private_key -> ${SSH_PRIVATE_KEY} (ssh private key)"
         exit 0
         ;;
     esac
 done
 
-echo "# Image               : ${IMAGE}"
-echo "# Container Name      : ${CONTAINER}"
-echo "# Locale              : ${LC_ALL}"
-echo "# Timezone            : ${TIMEZONE}"
-echo "# IP Listen           : $IP"
-echo "# Port Listen         : $PORT"
+echo "# Image                   : ${IMAGE}:${IMAGE_TAG}"
+echo "# Container Name          : ${CONTAINER}"
+echo "# Container Locale        : ${LC_ALL}"
+echo "# Container Timezone      : ${TIMEZONE}"
+echo "# SSH Server              : ${SSH_SERVER}"
+echo "# SSH Port                : ${SSH_PORT}"
+echo "# SSH User                : ${SSH_USER}"
+echo "# SSH Password            : ${SSH_PASSWORD}"
+echo "# SSH Private Key         : ${SSH_PRIVATE_KEY}"
 
 echo -e "Check if container ${CONTAINER} exist"
 CHECK=$(docker container ps -a | grep ${CONTAINER} | wc -l)
@@ -68,7 +103,7 @@ else
 fi
 
 echo -e "Create and run container"
-docker run -dit --name ${CONTAINER} -e LC_ALL=${LC_ALL} -e IP=${IP} -e PORT=${PORT} -e SSH_PRIVATE_KEY="" ${IMAGE} 
+docker run -dit --name ${CONTAINER} -e LC_ALL=${LC_ALL} -e TIMEZONE=${TIMEZONE} -e SSH_SERVER=${SSH_SERVER} -e SSH_PORT=${SSH_PORT} -e SSH_USER=${SSH_USER} -e SSH_PASSWORD=${SSH_PASSWORD} -e SSH_PRIVATE_KEY="${SSH_PRIVATE_KEY}" ${IMAGE}:${IMAGE_TAG}
 
 echo -e "Sleep 5 second"
 sleep 5
@@ -81,12 +116,11 @@ echo -e "Environment variable";
 docker exec -it ${CONTAINER} env
 
 echo -e ""
-echo -e "Test Locale (date)";
-docker exec -it ${CONTAINER} date
-
-echo -e ""
 echo -e "Container Logs"
 docker logs ${CONTAINER}
+
+rm -rf ./.env
+rm -rf ./settings.sh
 
 echo -e "Container attach"
 docker attach ${CONTAINER}

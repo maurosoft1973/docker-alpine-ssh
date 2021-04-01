@@ -1,13 +1,13 @@
 #!/bin/sh
-#Descriptn: Execute remote command
+#Description: Execute remote command
 
 # Default values of arguments
 SSH_SERVER=${SSH_SERVER:-"localhost"}
 SSH_PORT=${SSH_PORT:-"22"}
 SSH_USER=${SSH_USER:-"root"}
 SSH_PASSWORD=${SSH_PASSWORD:-"root"}
-PERMISSION=${PERMISSION:-""}
 DIRECTORY=${DIRECTORY:-""}
+SUDO=${SUDO:-""}
 
 # Loop through arguments and process them
 for arg in "$@"
@@ -29,8 +29,8 @@ do
         SSH_PASSWORD="${arg#*=}"
         shift # Remove
         ;;
-        -pe=*|--permission=*)
-        PERMISSION="${arg#*=}"
+        -S=*|--sudo=*)
+        SUDO="${arg#*=}"
         shift # Remove
         ;;
         -d=*|--directory=*)
@@ -44,7 +44,7 @@ do
         echo -e "  -P=|--port=${SSH_PORT} -> remote port (SSH_PORT)"
         echo -e "  -u=|--user=${SSH_USER} -> user (SSH_USER)"
         echo -e "  -p=|--password=${SSH_PASSWORD} -> password (SSH_PASSWORD)"
-        echo -e "  -pe=|--permission=${PERMISSION} -> permission (PERMISSION)"
+        echo -e "  -S=|--sudo=${SUDO} -> sudo (SUDO)"
         echo -e "  -d=|--directory=${DIRECTORY} -> directory (DIRECTORY)"
         exit 0
         ;;
@@ -52,7 +52,7 @@ do
 done
 
 if [ "${SSH_PASSWORD}" == "" ]; then
-    ssh -T ${SSH_USER}@${SSH_SERVER} -p ${SSH_PORT} "sudo chmod -R ${PERMISSION} ${DIRECTORY}"
+    ssh -T ${SSH_USER}@${SSH_SERVER} -p ${SSH_PORT} "${SUDO} mkdir -p ${DIRECTORY}"
 else
-    sshpass -p "${SSH_PASSWORD}" ssh -T ${SSH_USER}@${SSH_SERVER} -p ${SSH_PORT} "chmod -R ${PERMISSION} ${DIRECTORY}"
+    sshpass -p "${SSH_PASSWORD}" ssh -T ${SSH_USER}@${SSH_SERVER} -p ${SSH_PORT} "${SUDO} mkdir -p ${DIRECTORY}"
 fi
