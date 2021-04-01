@@ -4,12 +4,12 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/maurosoft1973/alpine-ssh.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/)
 [![Docker Stars](https://img.shields.io/docker/stars/maurosoft1973/alpine-ssh.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/)
 
-[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v%ALPINE_VERSION%-green.svg?style=for-the-badge)](https://alpinelinux.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.13.3-green.svg?style=for-the-badge)](https://alpinelinux.org/)
 
-The Docker images [(maurosoft1973/alpine-ssh)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [SSH Version v%SSH_VERSION%](https://www.openssh.com).
+The Docker images [(maurosoft1973/alpine-ssh)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [SSH Version v](https://www.openssh.com).
 
-##### Alpine Version %ALPINE_VERSION% (Released %ALPINE_VERSION_DATE%)
-##### SSH Client Version %SSH_VERSION% (Released %SSH_VERSION_DATE%)
+##### Alpine Version 3.13.3 (Released Mar 25, 2021)
+##### SSH Client Version  (Released )
 
 ## Description
 OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options.
@@ -109,4 +109,4 @@ ssh-test:
 ```
 
 ***
-###### Last Update %LAST_UPDATE%
+###### Last Update 01.04.2021 10:02:39
