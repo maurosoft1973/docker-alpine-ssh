@@ -4,11 +4,11 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/maurosoft1973/alpine-ssh.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/)
 [![Docker Stars](https://img.shields.io/docker/stars/maurosoft1973/alpine-ssh.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/)
 
-[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.13.3-green.svg?style=for-the-badge)](https://alpinelinux.org/)
+[![Alpine Version](https://img.shields.io/badge/Alpine%20version-v3.13.4-green.svg?style=for-the-badge)](https://alpinelinux.org/)
 
 The Docker images [(maurosoft1973/alpine-ssh)](https://hub.docker.com/r/maurosoft1973/alpine-ssh/) is based on the minimal [Alpine Linux](https://alpinelinux.org/) with [SSH Version v](https://www.openssh.com).
 
-##### Alpine Version 3.13.3 (Released Mar 25, 2021)
+##### Alpine Version 3.13.4 (Released Mar 31, 2021)
 ##### SSH Client Version  (Released )
 
 ## Description
@@ -76,7 +76,7 @@ ssh-test:
         - echo "Check Uptime"
         - ssh_remote_command -c="uptime"
         - echo "Restart rsyslog Service"
-        - ssh_remote_command -c="service restart rsyslogs"
+        - ssh_remote_command -c="service rsyslog restart"
         - echo "Create Remote Director /var/www/pippo"
         - ssh_remote_mkdir "/var/www/pippo"
         - echo "Store the result command into local variable"
@@ -103,10 +103,10 @@ ssh-test:
         - echo "Check Uptime"
         - ssh_remote_command -c="uptime"
         - echo "Restart rsyslog Service"
-        - ssh_remote_command -c="service restart rsyslogs"
+        - ssh_remote_command -c="service rsyslog restart"
         - echo "Create Remote Director /var/www/pippo"
         - ssh_remote_mkdir "/var/www/pippo"
 ```
 
 ***
-###### Last Update 01.04.2021 10:02:39
+###### Last Update 02.04.2021 19:51:59
