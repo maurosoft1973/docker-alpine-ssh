@@ -76,7 +76,7 @@ ssh-test:
         - echo "Check Uptime"
         - ssh_remote_command -c="uptime"
         - echo "Restart rsyslog Service"
-        - ssh_remote_command -c="service restart rsyslogs"
+        - ssh_remote_command -c="service rsyslog restart"
         - echo "Create Remote Director /var/www/pippo"
         - ssh_remote_mkdir "/var/www/pippo"
         - echo "Store the result command into local variable"
@@ -103,7 +103,7 @@ ssh-test:
         - echo "Check Uptime"
         - ssh_remote_command -c="uptime"
         - echo "Restart rsyslog Service"
-        - ssh_remote_command -c="service restart rsyslogs"
+        - ssh_remote_command -c="service rsyslog restart"
         - echo "Create Remote Director /var/www/pippo"
         - ssh_remote_mkdir "/var/www/pippo"
 ```
